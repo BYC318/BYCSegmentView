@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A49222128DDA220008B7DD5 /* BYCSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */; };
+		0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */; };
+		0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */; };
 		5910327C00B04000144474E6 /* Pods_BYCSegmentView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354BE28E81C23A18C8AB462A /* Pods_BYCSegmentView_Tests.framework */; };
 		5A835CA079ECC89E0E41F830 /* Pods_BYCSegmentView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5175F56FC42335B18AF2E514 /* Pods_BYCSegmentView_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -28,9 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		061808D2DB4FC73ECB3CEC37 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		061808D2DB4FC73ECB3CEC37 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController.swift; sourceTree = "<group>"; };
+		0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentListView.swift; sourceTree = "<group>"; };
+		0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController2.swift; sourceTree = "<group>"; };
 		0C42787CC9DF5147BF1A06C3 /* Pods-BYCSegmentView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BYCSegmentView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-BYCSegmentView_Tests/Pods-BYCSegmentView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		22AF19D01B6E16AC5E6E3848 /* BYCSegmentView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = BYCSegmentView.podspec; path = ../BYCSegmentView.podspec; sourceTree = "<group>"; };
+		22AF19D01B6E16AC5E6E3848 /* BYCSegmentView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BYCSegmentView.podspec; path = ../BYCSegmentView.podspec; sourceTree = "<group>"; };
 		354BE28E81C23A18C8AB462A /* Pods_BYCSegmentView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BYCSegmentView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5175F56FC42335B18AF2E514 /* Pods_BYCSegmentView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BYCSegmentView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* BYCSegmentView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BYCSegmentView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +49,7 @@
 		607FACE51AFB9204008FA782 /* BYCSegmentView_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BYCSegmentView_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6CFD81A9657F6B088158624B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		6CFD81A9657F6B088158624B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		A7BA514833283451FA3C675E /* Pods-BYCSegmentView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BYCSegmentView_Example.release.xcconfig"; path = "Target Support Files/Pods-BYCSegmentView_Example/Pods-BYCSegmentView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		ED597DB79A86F0F5F9E9C1F5 /* Pods-BYCSegmentView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BYCSegmentView_Tests.release.xcconfig"; path = "Target Support Files/Pods-BYCSegmentView_Tests/Pods-BYCSegmentView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F4B7FD47108002290CB98AA4 /* Pods-BYCSegmentView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BYCSegmentView_Example.debug.xcconfig"; path = "Target Support Files/Pods-BYCSegmentView_Example/Pods-BYCSegmentView_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,7 +83,6 @@
 				0C42787CC9DF5147BF1A06C3 /* Pods-BYCSegmentView_Tests.debug.xcconfig */,
 				ED597DB79A86F0F5F9E9C1F5 /* Pods-BYCSegmentView_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -114,6 +119,9 @@
 		607FACD21AFB9204008FA782 /* Example for BYCSegmentView */ = {
 			isa = PBXGroup;
 			children = (
+				0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */,
+				0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */,
+				0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -227,6 +235,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -292,10 +301,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BYCSegmentView_Example/Pods-BYCSegmentView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BYCSegmentView/BYCSegmentView.framework",
+				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BYCSegmentView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -332,7 +347,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				0A49222128DDA220008B7DD5 /* BYCSegmentViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */,
+				0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

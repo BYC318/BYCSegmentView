@@ -1,0 +1,6 @@
+framework module BYCSegmentView {
+  umbrella header "BYCSegmentView-umbrella.h"
+
+  export *
+  module * { export * }
+}
