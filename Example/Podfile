@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'BYCSegmentView_Example' do
+  pod 'BYCSegmentView', :path => '../'
+
+  target 'BYCSegmentView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
