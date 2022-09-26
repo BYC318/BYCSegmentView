@@ -1,5 +1,5 @@
 //
-//  BYCSegmentViewController2.swift
+//  BYCSegmentViewController3.swift
 //  CoinExchange_iOS
 //
 //  Created by 元朝 on 2022/9/16.
@@ -11,7 +11,7 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController2: UIViewController {
+class BYCSegmentViewController3: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -70,6 +70,14 @@ class BYCSegmentViewController2: UIViewController {
             make.edges.equalTo(self.view)
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            var frame = self.header.frame
+            frame.size.height = 878
+            self.header.frame = frame
+            self.smoothView.refreshHeaderView()
+
+        }
     }
     
     @objc func buttonAction() {
@@ -79,7 +87,7 @@ class BYCSegmentViewController2: UIViewController {
     }
 }
 
-extension BYCSegmentViewController2: BYCSegmentViewDataSource, BYCListViewDelegate {
+extension BYCSegmentViewController3: BYCSegmentViewDataSource, BYCListViewDelegate {
     func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return header
     }

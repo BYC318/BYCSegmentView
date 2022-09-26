@@ -24,7 +24,7 @@ public enum BYCSegmentHoverType {
 }
 
 @objc public protocol BYCSegmentViewDataSource : NSObjectProtocol {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView
+    func headerView(_ segmentView: BYCSegmentView) -> UIView?
     func segmentedView(_ segmentView: BYCSegmentView) -> UIView?
     func numberOfLists(_ segmentView: BYCSegmentView) -> Int
     func segmentView(_ segmentView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate
@@ -37,21 +37,13 @@ public enum BYCSegmentHoverType {
     @objc optional func segmentViewDragEnded(_ segmentView: BYCSegmentView, isOnTop: Bool)
 }
 
-public class BYCSegmentCollectionView: UICollectionView {
-    var headerContainerView: UIView?
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let point = touch.location(in: headerContainerView)
-        return headerContainerView?.bounds.contains(point) == false
-    }
-}
-
 let BYCSegmentViewCellID = "SegmentCell"
 let BYCSegmentViewContentOffset = "contentOffset"
 let BYCSegmentViewContentSize = "contentSize"
 
 open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     public private(set) var listDict = [Int: BYCSegmentListViewDelegate]()
-    public let listCollectionView: BYCSegmentCollectionView
+    public let listCollectionView: UICollectionView
     public var defaultSelectedIndex: Int = 0
     public var headerStickyHeight: CGFloat = 0
     public weak var delegate: BYCSegmentViewDelegate?
@@ -90,7 +82,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
-        listCollectionView = BYCSegmentCollectionView(frame: .zero, collectionViewLayout: layout)
+        listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: .zero)
         
         listCollectionView.dataSource = self
@@ -106,7 +98,6 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         if #available(iOS 11.0, *) {
             listCollectionView.contentInsetAdjustmentBehavior = .never
         }
-        listCollectionView.headerContainerView = headerContainerView
         self.addSubview(listCollectionView)
         
         self.addSubview(self.headerContainerView)
@@ -174,7 +165,9 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     func loadHeaderAndSegmentedView() {
         self.headerView = self.dataSource?.headerView(self)
         self.segmentedView = self.dataSource?.segmentedView(self)
-        self.headerContainerView.addSubview(self.headerView!)
+        if let headerView = self.headerView {
+            self.headerContainerView.addSubview(headerView)
+        }
         if let segmentedView = self.segmentedView {
             self.headerContainerView.addSubview(segmentedView)
         }
@@ -451,7 +444,6 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
         
         let listScrollView = self.listDict[index]?.listScrollView()
         if (indexPercent - CGFloat(index) == 0) && !(scrollView.isTracking || scrollView.isDecelerating) && listScrollView?.contentOffset.y ?? 0 <= -(segmentedHeight + headerStickyHeight) {
-            print("scrollViewDidScroll horizontalScrollDidEnd")
             horizontalScrollDidEnd(at: index)
         }else {
             if headerContainerView.superview != self {

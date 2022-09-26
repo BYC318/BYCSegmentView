@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="125.59999999999999" y="74.212893553223395"/>
         </scene>
-        <!--View Controller-->
+        <!--列表-->
         <scene sceneID="VJl-DT-ABG">
             <objects>
                 <tableViewController id="ruo-cJ-oiw" customClass="ViewController" customModule="BYCSegmentView_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="wW8-er-97Y">
+                            <tableViewSection headerTitle="" id="wW8-er-97Y">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="USH-Jp-dWH" style="IBUITableViewCellStyleDefault" id="uUO-Ih-AWB">
                                         <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
@@ -78,7 +78,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nss-Ki-Tfc">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="动态修改高度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nss-Ki-Tfc">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="kBQ-OL-9jG" style="IBUITableViewCellStyleDefault" id="s1M-Z6-uTF">
+                                        <rect key="frame" x="0.0" y="175" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s1M-Z6-uTF" id="Sfm-gA-X9e">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="不传head和指示器" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBQ-OL-9jG">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -96,7 +113,7 @@
                             <outlet property="delegate" destination="ruo-cJ-oiw" id="bM1-Jl-oNr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Dkr-Nw-S79"/>
+                    <navigationItem key="navigationItem" title="列表" id="Dkr-Nw-S79"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7O-tg-jZd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

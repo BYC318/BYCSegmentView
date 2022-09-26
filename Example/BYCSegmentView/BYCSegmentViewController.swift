@@ -50,10 +50,17 @@ class BYCSegmentViewController: UIViewController {
         return categoryView
     }()
     
-    private var header: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
-        imageView.image = UIImage.init(named: "image")
-        return imageView
+//    private var header: UIImageView = {
+//        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
+//        imageView.image = UIImage.init(named: "image")
+//        return imageView
+//    }()
+//
+    private lazy var header: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
+        button.setImage(UIImage.init(named: "image"), for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return button
     }()
     
     override func viewDidLoad() {
@@ -95,16 +102,15 @@ class BYCSegmentViewController: UIViewController {
     
 
     
-    @objc func moreAction() {
-        smoothView.snp.remakeConstraints { make in
-            make.left.right.bottom.equalTo(0)
-            make.top.equalTo(100)
-        }
+    @objc func buttonAction() {
+        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
+        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
+        self.present(alter, animated: true, completion: nil)
     }
 }
 
 extension BYCSegmentViewController: BYCSegmentViewDataSource, BYCListViewDelegate {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView {
+    func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return header
     }
     func segmentedView(_ smoothView: BYCSegmentView) -> UIView? {
@@ -116,7 +122,7 @@ extension BYCSegmentViewController: BYCSegmentViewDataSource, BYCListViewDelegat
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        let listView = BYCSegmentListView(listType: .tableView, delegate: self, index: index)
+        let listView = BYCSegmentListView(delegate: self, index: index)
         listView.requestData()
         return listView
     }
