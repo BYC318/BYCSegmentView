@@ -62,15 +62,17 @@ class BYCSegmentViewController: UIViewController {
         self.view.addSubview(self.categoryView)
         
         view.backgroundColor = .red
-        self.smoothView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(self.view)
-            make.edges.equalTo(UIEdgeInsets.init(top: 50 + UIApplication.shared.statusBarFrame.height + 44, left: 0, bottom: 0, right: 0))
-        }
+
+        let top = UIApplication.shared.statusBarFrame.height + 44
         self.categoryView.snp.makeConstraints { (make) in
 
-            make.top.equalTo(UIApplication.shared.statusBarFrame.height + 44)
+            make.top.equalTo(top)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
+        }
+        self.smoothView.snp.makeConstraints { (make) in
+//            make.edges.equalTo(self.view)
+            make.edges.equalTo(UIEdgeInsets.init(top: 50 + top, left: 0, bottom: 0, right: 0))
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
         

@@ -7,6 +7,7 @@ target 'BYCSegmentView_Example' do
   pod 'JXSegmentedView', '~> 1.2.7'
   pod 'MJRefresh'
   pod 'SnapKit', '5.0.1'
+  pod 'LookinServer', :configurations => ['Debug']
   target 'BYCSegmentView_Tests' do
     inherit! :search_paths
 

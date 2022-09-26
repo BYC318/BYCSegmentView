@@ -46,6 +46,8 @@ public class BYCSegmentCollectionView: UICollectionView {
 }
 
 let BYCSegmentViewCellID = "SegmentCell"
+let BYCSegmentViewContentOffset = "contentOffset"
+let BYCSegmentViewContentSize = "contentSize"
 
 open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     public private(set) var listDict = [Int: BYCSegmentListViewDelegate]()
@@ -117,8 +119,8 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     deinit {
         listDict.values.forEach {
-            $0.listScrollView().removeObserver(self, forKeyPath: "contentOffset")
-            $0.listScrollView().removeObserver(self, forKeyPath: "contentSize")
+            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
+            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
         }
         self.headerView?.removeFromSuperview()
         self.segmentedView?.removeFromSuperview()
@@ -157,8 +159,8 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         
         listHeaderDict.removeAll()
         listDict.values.forEach {
-            $0.listScrollView().removeObserver(self, forKeyPath: "contentOffset")
-            $0.listScrollView().removeObserver(self, forKeyPath: "contentSize")
+            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
+            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
             $0.listView().removeFromSuperview()
         }
         listDict.removeAll()
@@ -237,12 +239,10 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         if index != self.currentIndex { return }
         self.currentListScrollView = scrollView
         let contentOffsetY = scrollView.contentOffset.y + headerContainerHeight
-        print("currentHeaderContainerViewY 3 == \(scrollView.contentOffset.y)")
         if contentOffsetY < (headerHeight - headerStickyHeight) {
             self.hoverType = .none
             isSyncListContentOffsetEnabled = true
             currentHeaderContainerViewY = -contentOffsetY
-            print("currentHeaderContainerViewY 2 == \(currentHeaderContainerViewY)")
             for list in listDict.values {
                 if list.listScrollView() != scrollView {
                     list.listScrollView().setContentOffset(scrollView.contentOffset, animated: false)
@@ -265,7 +265,6 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
             if isSyncListContentOffsetEnabled {
                 isSyncListContentOffsetEnabled = false
                 currentHeaderContainerViewY = -(headerHeight - headerStickyHeight)
-                print("currentHeaderContainerViewY 1 == ?\(headerHeight) -? \(headerStickyHeight) -? \(currentHeaderContainerViewY)")
                 for list in listDict.values {
                     if list.listScrollView() != currentListScrollView {
                         list.listScrollView().setContentOffset(CGPoint(x: 0, y: -(segmentedHeight + headerStickyHeight)), animated: false)
@@ -321,11 +320,11 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentOffset" {
+        if keyPath == BYCSegmentViewContentOffset {
             if let scrollView = object as? UIScrollView {
                 listDidScroll(scrollView: scrollView)
             }
-        } else if keyPath == "contentSize" {
+        } else if keyPath == BYCSegmentViewContentSize {
             let minContentSizeHeight = self.bounds.size.height - self.segmentedHeight - self.headerStickyHeight
             if let scrollView = object as? UIScrollView {
                 let contentH = scrollView.contentSize.height
@@ -414,8 +413,8 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
             }
             listHeaderDict[indexPath.item] = listHeader
     
-            listScrollView?.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
-            listScrollView?.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+            listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentOffset, options: .new, context: nil)
+            listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentSize, options: .new, context: nil)
             listScrollView?.contentOffset = listScrollView!.contentOffset
         }
         listDict.values.forEach {
