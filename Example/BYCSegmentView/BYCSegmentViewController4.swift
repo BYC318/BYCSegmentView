@@ -69,21 +69,13 @@ class BYCSegmentViewController4: UIViewController {
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
     }
-    
-
-    
-    @objc func buttonAction() {
-        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
-        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
-        self.present(alter, animated: true, completion: nil)
-    }
 }
 
 extension BYCSegmentViewController4: BYCSegmentViewDataSource, BYCListViewDelegate {
     func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return nil
     }
-    func segmentedView(_ smoothView: BYCSegmentView) -> UIView? {
+    func sliderView(_ segmentView: BYCSegmentView) -> UIView? {
         return nil
     }
     

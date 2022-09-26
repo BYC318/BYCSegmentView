@@ -51,9 +51,9 @@ class BYCSegmentListView: UIView {
     func requestData() {
         self.count = 100
         if self.index == 1 {
-            self.count = 50;
+            self.count = 5;
         }else if self.index == 2 {
-            self.count = 30
+            self.count = 3
         }
         self.reloadData()
     }

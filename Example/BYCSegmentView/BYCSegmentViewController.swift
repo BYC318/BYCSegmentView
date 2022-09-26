@@ -49,13 +49,7 @@ class BYCSegmentViewController: UIViewController {
         
         return categoryView
     }()
-    
-//    private var header: UIImageView = {
-//        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
-//        imageView.image = UIImage.init(named: "image")
-//        return imageView
-//    }()
-//
+
     private lazy var header: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
         button.setImage(UIImage.init(named: "image"), for: .normal)
@@ -78,25 +72,10 @@ class BYCSegmentViewController: UIViewController {
             make.height.equalTo(50)
         }
         self.smoothView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(self.view)
             make.edges.equalTo(UIEdgeInsets.init(top: 50 + top, left: 0, bottom: 0, right: 0))
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.categoryView.selectItemAt(index: self.categoryView.defaultSelectedIndex)
-////            self.smoothView.headerStickyHeight += 200
-//            self.smoothView.reloadData()
-//
-//        }
-        
-//        /// 修改高度
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.header.height = 878
-//            self.smoothView.refreshHeaderView()
-//
-//        }
-        
+
         header.backgroundColor = .green
     }
     
@@ -113,7 +92,7 @@ extension BYCSegmentViewController: BYCSegmentViewDataSource, BYCListViewDelegat
     func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return header
     }
-    func segmentedView(_ smoothView: BYCSegmentView) -> UIView? {
+    func sliderView(_ segmentView: BYCSegmentView) -> UIView? {
         return nil
     }
     

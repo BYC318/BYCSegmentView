@@ -25,7 +25,7 @@ public enum BYCSegmentHoverType {
 
 @objc public protocol BYCSegmentViewDataSource : NSObjectProtocol {
     func headerView(_ segmentView: BYCSegmentView) -> UIView?
-    func segmentedView(_ segmentView: BYCSegmentView) -> UIView?
+    func sliderView(_ segmentView: BYCSegmentView) -> UIView?
     func numberOfLists(_ segmentView: BYCSegmentView) -> Int
     func segmentView(_ segmentView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate
 }
@@ -42,18 +42,20 @@ let BYCSegmentViewContentOffset = "contentOffset"
 let BYCSegmentViewContentSize = "contentSize"
 
 open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
+    /// 列表代理集合
     public private(set) var listDict = [Int: BYCSegmentListViewDelegate]()
     public let listCollectionView: UICollectionView
     public var defaultSelectedIndex: Int = 0
+    /// 悬停高度
     public var headerStickyHeight: CGFloat = 0
     public weak var delegate: BYCSegmentViewDelegate?
-    public private(set) var hoverType: BYCSegmentHoverType = .none
-    
-    public var isHoldUpScrollView: Bool = false
-    
     weak var dataSource: BYCSegmentViewDataSource?
+    public private(set) var hoverType: BYCSegmentHoverType = .none
+    /// 支持内容不足时候撑开内容
+    public var isHoldUpScrollView: Bool = true
+    /// 列表头部占位容器集合
     var listHeaderDict = [Int: UIView]()
-    
+    /// 主视图头部占位容器
     lazy var headerContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .green
@@ -61,7 +63,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     }()
 
     var headerView: UIView?
-    var segmentedView: UIView?
+    var sliderView: UIView?
     
     public private(set) var currentIndex: Int = 0
     public private(set) var currentListScrollView: UIScrollView?
@@ -114,7 +116,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
             $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
         }
         self.headerView?.removeFromSuperview()
-        self.segmentedView?.removeFromSuperview()
+        self.sliderView?.removeFromSuperview()
         self.listCollectionView.dataSource = nil
         self.listCollectionView.delegate = nil
     }
@@ -164,12 +166,12 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     func loadHeaderAndSegmentedView() {
         self.headerView = self.dataSource?.headerView(self)
-        self.segmentedView = self.dataSource?.segmentedView(self)
+        self.sliderView = self.dataSource?.sliderView(self)
         if let headerView = self.headerView {
             self.headerContainerView.addSubview(headerView)
         }
-        if let segmentedView = self.segmentedView {
-            self.headerContainerView.addSubview(segmentedView)
+        if let sliderView = self.sliderView {
+            self.headerContainerView.addSubview(sliderView)
         }
         
         refreshHeaderContainerHeight()
@@ -188,7 +190,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
             self.headerContainerView.frame = frame
             
             self.headerView?.frame = CGRect(x: 0, y: 0, width: size.width, height: self.headerHeight)
-            if let segmentedView = self.segmentedView {
+            if let segmentedView = self.sliderView {
                 segmentedView.frame = CGRect(x: 0, y: self.headerHeight, width: size.width, height: self.segmentedHeight)
                 if segmentedView.superview != self.headerContainerView {
                     self.headerContainerView.addSubview(segmentedView)
@@ -212,7 +214,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     func refreshHeaderContainerHeight() {
         self.headerHeight = self.headerView?.bounds.size.height ?? 0
-        self.segmentedHeight = self.segmentedView?.bounds.size.height ?? 0
+        self.segmentedHeight = self.sliderView?.bounds.size.height ?? 0
         self.headerContainerHeight = self.headerHeight + self.segmentedHeight
     }
     
@@ -325,6 +327,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
                     scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: minContentSizeHeight)
                     if let listScrollView = self.currentListScrollView {
                         if scrollView != listScrollView {
+                            print("isHoldUpScrollView  111 === ")
                             scrollView.contentOffset = CGPoint(x: 0, y: self.currentListInitailzeContentOffsetY)
                         }
                     }
@@ -362,7 +365,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         
         let minContentSizeHeight = self.bounds.size.height - self.segmentedHeight - self.headerStickyHeight
         if (minContentSizeHeight > listScrollView.contentSize.height && !self.isHoldUpScrollView) {
-            listScrollView.setContentOffset(CGPoint(x: listScrollView.contentOffset.x, y: -self.headerContainerHeight), animated: false)
+            listScrollView.setContentOffset(CGPoint(x: listScrollView.contentOffset.x, y: listScrollView.contentSize.height-self.headerContainerHeight), animated: false)
             listDidScroll(scrollView: listScrollView)
         }
     }

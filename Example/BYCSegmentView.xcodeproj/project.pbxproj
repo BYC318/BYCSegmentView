@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A105C6928E184EB00F0DB4C /* BYCSegmentViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A105C6828E184EB00F0DB4C /* BYCSegmentViewController3.swift */; };
 		0A105C6B28E1870900F0DB4C /* BYCSegmentViewController4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A105C6A28E1870900F0DB4C /* BYCSegmentViewController4.swift */; };
+		0A105C6D28E1927700F0DB4C /* BYCSegmentViewController5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A105C6C28E1927700F0DB4C /* BYCSegmentViewController5.swift */; };
 		0A49222128DDA220008B7DD5 /* BYCSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */; };
 		0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */; };
 		0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */; };
@@ -24,6 +25,7 @@
 		061808D2DB4FC73ECB3CEC37 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		0A105C6828E184EB00F0DB4C /* BYCSegmentViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController3.swift; sourceTree = "<group>"; };
 		0A105C6A28E1870900F0DB4C /* BYCSegmentViewController4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController4.swift; sourceTree = "<group>"; };
+		0A105C6C28E1927700F0DB4C /* BYCSegmentViewController5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController5.swift; sourceTree = "<group>"; };
 		0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController.swift; sourceTree = "<group>"; };
 		0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentListView.swift; sourceTree = "<group>"; };
 		0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController2.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */,
 				0A105C6828E184EB00F0DB4C /* BYCSegmentViewController3.swift */,
 				0A105C6A28E1870900F0DB4C /* BYCSegmentViewController4.swift */,
+				0A105C6C28E1927700F0DB4C /* BYCSegmentViewController5.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -287,6 +290,7 @@
 				0A105C6B28E1870900F0DB4C /* BYCSegmentViewController4.swift in Sources */,
 				0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */,
 				0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */,
+				0A105C6D28E1927700F0DB4C /* BYCSegmentViewController5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

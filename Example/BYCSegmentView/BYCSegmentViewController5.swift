@@ -1,5 +1,5 @@
 //
-//  BYCSegmentViewController3.swift
+//  BYCSegmentViewController5.swift
 //  CoinExchange_iOS
 //
 //  Created by 元朝 on 2022/9/16.
@@ -11,7 +11,7 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController3: UIViewController {
+class BYCSegmentViewController5: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -22,9 +22,17 @@ class BYCSegmentViewController3: UIViewController {
     
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
-        smoothView.headerStickyHeight = UIApplication.shared.statusBarFrame.height + 44
+        smoothView.headerStickyHeight = 0
         smoothView.defaultSelectedIndex = 1
+        smoothView.isHoldUpScrollView = false
         return smoothView
+    }()
+    
+    private lazy var header: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 876))
+        button.setImage(UIImage.init(named: "image"), for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return button
     }()
     
     var titleDataSource = JXSegmentedTitleDataSource()
@@ -49,29 +57,16 @@ class BYCSegmentViewController3: UIViewController {
         
         return categoryView
     }()
-
-    private lazy var header: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
-        button.setImage(UIImage.init(named: "image"), for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return button
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.smoothView)
+        
+        view.backgroundColor = .red
         self.smoothView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view)
+            make.edges.equalToSuperview()
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            var frame = self.header.frame
-            frame.size.height = 878
-            self.header.frame = frame
-            self.smoothView.refreshHeaderView()
-
-        }
     }
     
     @objc func buttonAction() {
@@ -81,7 +76,7 @@ class BYCSegmentViewController3: UIViewController {
     }
 }
 
-extension BYCSegmentViewController3: BYCSegmentViewDataSource, BYCListViewDelegate {
+extension BYCSegmentViewController5: BYCSegmentViewDataSource, BYCListViewDelegate {
     func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return header
     }

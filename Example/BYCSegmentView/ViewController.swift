@@ -21,6 +21,8 @@ class ViewController: UITableViewController {
             self.navigationController?.pushViewController(BYCSegmentViewController3(), animated: true)
         case 3:
             self.navigationController?.pushViewController(BYCSegmentViewController4(), animated: true)
+        case 4:
+            self.navigationController?.pushViewController(BYCSegmentViewController5(), animated: true)
         default:
             break
         }

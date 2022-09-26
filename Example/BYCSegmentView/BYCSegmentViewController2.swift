@@ -50,12 +50,6 @@ class BYCSegmentViewController2: UIViewController {
         return categoryView
     }()
     
-//    private var header: UIImageView = {
-//        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
-//        imageView.image = UIImage.init(named: "image")
-//        return imageView
-//    }()
-    
     private lazy var header: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
         button.setImage(UIImage.init(named: "image"), for: .normal)
@@ -83,7 +77,7 @@ extension BYCSegmentViewController2: BYCSegmentViewDataSource, BYCListViewDelega
     func headerView(_ segmentView: BYCSegmentView) -> UIView? {
         return header
     }
-    func segmentedView(_ smoothView: BYCSegmentView) -> UIView? {
+    func sliderView(_ segmentView: BYCSegmentView) -> UIView? {
         return categoryView
     }
     
