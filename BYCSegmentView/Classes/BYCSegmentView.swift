@@ -24,8 +24,8 @@ public enum BYCSegmentHoverType {
 }
 
 @objc public protocol BYCSegmentViewDataSource : NSObjectProtocol {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView?
-    func sliderView(_ segmentView: BYCSegmentView) -> UIView?
+    @objc optional func  headerView(_ segmentView: BYCSegmentView) -> UIView
+    @objc optional func  sliderView(_ segmentView: BYCSegmentView) -> UIView
     func numberOfLists(_ segmentView: BYCSegmentView) -> Int
     func segmentView(_ segmentView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate
 }
@@ -165,8 +165,8 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     }
     
     func loadHeaderAndSegmentedView() {
-        self.headerView = self.dataSource?.headerView(self)
-        self.sliderView = self.dataSource?.sliderView(self)
+        self.headerView = self.dataSource?.headerView?(self)
+        self.sliderView = self.dataSource?.sliderView?(self)
         if let headerView = self.headerView {
             self.headerContainerView.addSubview(headerView)
         }

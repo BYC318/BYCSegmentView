@@ -8,12 +8,7 @@
 import UIKit
 import BYCSegmentView
 
-protocol BYCListViewDelegate: NSObjectProtocol {
-    func smoothViewHeaderContainerHeight() -> CGFloat
-}
-
 class BYCSegmentListView: UIView {
-    weak var delegate: BYCListViewDelegate?
 
     var clickActionBlock: (() -> Void)?
     
@@ -30,10 +25,9 @@ class BYCSegmentListView: UIView {
     var count: Int = 0
     var index: Int = 0
 
-    init(delegate: BYCListViewDelegate, index: Int) {
+    init(index: Int) {
         super.init(frame: .zero)
         
-        self.delegate = delegate
         self.index = index
 
         self.addSubview(self.tableView)

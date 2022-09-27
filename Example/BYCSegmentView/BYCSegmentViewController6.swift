@@ -1,5 +1,5 @@
 //
-//  BYCSegmentViewController2.swift
+//  BYCSegmentViewController6.swift
 //  CoinExchange_iOS
 //
 //  Created by 元朝 on 2022/9/16.
@@ -11,7 +11,7 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController2: UIViewController {
+class BYCSegmentViewController6: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -22,7 +22,7 @@ class BYCSegmentViewController2: UIViewController {
     
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
-        smoothView.headerStickyHeight = UIApplication.shared.statusBarFrame.height + 44
+        smoothView.headerStickyHeight = 0
         smoothView.defaultSelectedIndex = 1
         return smoothView
     }()
@@ -50,44 +50,34 @@ class BYCSegmentViewController2: UIViewController {
         return categoryView
     }()
     
-    private lazy var header: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
-        button.setImage(UIImage.init(named: "image"), for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.smoothView)
+        self.view.addSubview(self.categoryView)
+        
+        view.backgroundColor = .red
+
+        let top = UIApplication.shared.statusBarFrame.height + 44
+        self.categoryView.snp.makeConstraints { (make) in
+
+            make.top.equalTo(top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
         self.smoothView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view)
+            make.edges.equalTo(UIEdgeInsets.init(top: 50 + top, left: 0, bottom: 0, right: 0))
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
     }
-    
-    @objc func buttonAction() {
-        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
-        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
-        self.present(alter, animated: true, completion: nil)
-    }
 }
 
-extension BYCSegmentViewController2: BYCSegmentViewDataSource {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView {
-        return header
-    }
-    func sliderView(_ segmentView: BYCSegmentView) -> UIView {
-        return categoryView
-    }
-    
+extension BYCSegmentViewController6: BYCSegmentViewDataSource {
     func numberOfLists(_ smoothView: BYCSegmentView) -> Int {
         return self.titleDataSource.titles.count
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        let listView = BYCSegmentListView(index: index)
-        listView.requestData()
+        let listView = BYCSegmentViewController61()
         return listView
     }
 }

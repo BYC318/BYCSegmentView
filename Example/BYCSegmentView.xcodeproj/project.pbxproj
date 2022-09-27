@@ -13,6 +13,8 @@
 		0A49222128DDA220008B7DD5 /* BYCSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */; };
 		0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */; };
 		0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */; };
+		0AAD053B28E26CC800E0251D /* BYCSegmentViewController6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD053A28E26CC800E0251D /* BYCSegmentViewController6.swift */; };
+		0AAD053D28E26F3200E0251D /* BYCSegmentViewController61.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD053C28E26F3200E0251D /* BYCSegmentViewController61.swift */; };
 		5A835CA079ECC89E0E41F830 /* Pods_BYCSegmentView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5175F56FC42335B18AF2E514 /* Pods_BYCSegmentView_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -29,6 +31,8 @@
 		0A49221F28DDA220008B7DD5 /* BYCSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController.swift; sourceTree = "<group>"; };
 		0A49222028DDA220008B7DD5 /* BYCSegmentListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentListView.swift; sourceTree = "<group>"; };
 		0A49222328DDA924008B7DD5 /* BYCSegmentViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController2.swift; sourceTree = "<group>"; };
+		0AAD053A28E26CC800E0251D /* BYCSegmentViewController6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController6.swift; sourceTree = "<group>"; };
+		0AAD053C28E26F3200E0251D /* BYCSegmentViewController61.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BYCSegmentViewController61.swift; sourceTree = "<group>"; };
 		0C42787CC9DF5147BF1A06C3 /* Pods-BYCSegmentView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BYCSegmentView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-BYCSegmentView_Tests/Pods-BYCSegmentView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		22AF19D01B6E16AC5E6E3848 /* BYCSegmentView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BYCSegmentView.podspec; path = ../BYCSegmentView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		354BE28E81C23A18C8AB462A /* Pods_BYCSegmentView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BYCSegmentView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,8 @@
 				0A105C6828E184EB00F0DB4C /* BYCSegmentViewController3.swift */,
 				0A105C6A28E1870900F0DB4C /* BYCSegmentViewController4.swift */,
 				0A105C6C28E1927700F0DB4C /* BYCSegmentViewController5.swift */,
+				0AAD053A28E26CC800E0251D /* BYCSegmentViewController6.swift */,
+				0AAD053C28E26F3200E0251D /* BYCSegmentViewController61.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -283,11 +289,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AAD053D28E26F3200E0251D /* BYCSegmentViewController61.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				0A49222128DDA220008B7DD5 /* BYCSegmentViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				0A105C6928E184EB00F0DB4C /* BYCSegmentViewController3.swift in Sources */,
 				0A105C6B28E1870900F0DB4C /* BYCSegmentViewController4.swift in Sources */,
+				0AAD053B28E26CC800E0251D /* BYCSegmentViewController6.swift in Sources */,
 				0A49222228DDA220008B7DD5 /* BYCSegmentListView.swift in Sources */,
 				0A49222428DDA924008B7DD5 /* BYCSegmentViewController2.swift in Sources */,
 				0A105C6D28E1927700F0DB4C /* BYCSegmentViewController5.swift in Sources */,

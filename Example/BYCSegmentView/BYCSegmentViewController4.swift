@@ -71,25 +71,15 @@ class BYCSegmentViewController4: UIViewController {
     }
 }
 
-extension BYCSegmentViewController4: BYCSegmentViewDataSource, BYCListViewDelegate {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView? {
-        return nil
-    }
-    func sliderView(_ segmentView: BYCSegmentView) -> UIView? {
-        return nil
-    }
-    
+extension BYCSegmentViewController4: BYCSegmentViewDataSource {
+
     func numberOfLists(_ smoothView: BYCSegmentView) -> Int {
         return self.titleDataSource.titles.count
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        let listView = BYCSegmentListView(delegate: self, index: index)
+        let listView = BYCSegmentListView(index: index)
         listView.requestData()
         return listView
-    }
-
-    func smoothViewHeaderContainerHeight() -> CGFloat {
-        return self.smoothView.headerContainerHeight
     }
 }

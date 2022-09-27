@@ -76,11 +76,11 @@ class BYCSegmentViewController5: UIViewController {
     }
 }
 
-extension BYCSegmentViewController5: BYCSegmentViewDataSource, BYCListViewDelegate {
-    func headerView(_ segmentView: BYCSegmentView) -> UIView? {
+extension BYCSegmentViewController5: BYCSegmentViewDataSource {
+    func headerView(_ segmentView: BYCSegmentView) -> UIView {
         return header
     }
-    func sliderView(_ segmentView: BYCSegmentView) -> UIView? {
+    func sliderView(_ segmentView: BYCSegmentView) -> UIView {
         return categoryView
     }
     
@@ -89,12 +89,8 @@ extension BYCSegmentViewController5: BYCSegmentViewDataSource, BYCListViewDelega
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        let listView = BYCSegmentListView(delegate: self, index: index)
+        let listView = BYCSegmentListView(index: index)
         listView.requestData()
         return listView
-    }
-
-    func smoothViewHeaderContainerHeight() -> CGFloat {
-        return self.smoothView.headerContainerHeight
     }
 }
