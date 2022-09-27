@@ -20,7 +20,8 @@ DerivedData
 
 # Bundler
 .bundle
-.pushToCocoapods.sh
+pushToCocoapods.sh
+push.sh
 
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
