@@ -77,6 +77,8 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
 
     var isScroll = false
     
+    var animated = true
+    
     public init(dataSource: BYCSegmentViewDataSource) {
         self.dataSource = dataSource
         
@@ -365,7 +367,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         
         let minContentSizeHeight = self.bounds.size.height - self.segmentedHeight - self.headerStickyHeight
         if (minContentSizeHeight > listScrollView.contentSize.height && !self.isHoldUpScrollView) {
-            listScrollView.setContentOffset(CGPoint(x: listScrollView.contentOffset.x, y: listScrollView.contentSize.height-self.headerContainerHeight), animated: false)
+            listScrollView.setContentOffset(CGPoint(x: listScrollView.contentOffset.x, y: listScrollView.contentSize.height-self.headerContainerHeight), animated: animated)
             listDidScroll(scrollView: listScrollView)
         }
     }
@@ -384,6 +386,7 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
         guard let dataSource = self.dataSource else { return UICollectionViewCell() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BYCSegmentViewCellID, for: indexPath)
         var list = listDict[indexPath.item]
+        animated = true
         if list == nil {
             list = dataSource.segmentView(self, initListAtIndex: indexPath.item)
             listDict[indexPath.item] = list!
@@ -412,6 +415,7 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
             listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentOffset, options: .new, context: nil)
             listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentSize, options: .new, context: nil)
             listScrollView?.contentOffset = listScrollView!.contentOffset
+            animated = false
         }
         listDict.values.forEach {
             $0.listScrollView().scrollsToTop = ($0 === list)
