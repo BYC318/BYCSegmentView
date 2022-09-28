@@ -20,7 +20,7 @@ class BYCSegmentViewController6: UIViewController {
         return .default
     }
     
-    let datas = [0: BYCSegmentViewController61(), 1: BYCSegmentViewController61(), 2: BYCSegmentViewController61()]
+    let datas = [0: BYCSegmentListView.init(index: 0), 1: BYCSegmentViewController61(imageName: "image1"), 2: BYCSegmentViewController61(imageName: "image2")]
     
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
@@ -50,13 +50,7 @@ class BYCSegmentViewController6: UIViewController {
         
         return categoryView
     }()
-    
-    private lazy var header: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 876))
-        button.setImage(UIImage.init(named: "image"), for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return button
-    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,12 +71,7 @@ class BYCSegmentViewController6: UIViewController {
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
     }
-    
-    @objc func buttonAction() {
-        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
-        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
-        self.present(alter, animated: true, completion: nil)
-    }
+
 }
 
 extension BYCSegmentViewController6: BYCSegmentViewDataSource {
@@ -92,6 +81,6 @@ extension BYCSegmentViewController6: BYCSegmentViewDataSource {
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        return datas[index]!
+        return datas[index]! as! BYCSegmentListViewDelegate
     }
 }

@@ -20,7 +20,7 @@ class BYCSegmentViewController61: UIViewController {
         return .default
     }
     
-    let defaultSelectedIndex = 2
+    let defaultSelectedIndex = 1
     
     
     let datas = [0: BYCSegmentListView(index: 0), 1: BYCSegmentListView(index: 1), 2: BYCSegmentListView(index: 2)]
@@ -55,6 +55,24 @@ class BYCSegmentViewController61: UIViewController {
         return categoryView
     }()
     
+    let imageName: String
+    
+    private lazy var header: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 400))
+        button.setImage(UIImage.init(named: imageName), for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    init(imageName: String) {
+        self.imageName = imageName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.smoothView)
@@ -74,9 +92,21 @@ class BYCSegmentViewController61: UIViewController {
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
     }
+    
+    
+    @objc func buttonAction() {
+        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
+        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
+        self.present(alter, animated: true, completion: nil)
+    }
 }
 
 extension BYCSegmentViewController61: BYCSegmentViewDataSource {
+    
+    func headerView(_ segmentView: BYCSegmentView) -> UIView {
+        return header
+    }
+    
     func numberOfLists(_ smoothView: BYCSegmentView) -> Int {
         return self.titleDataSource.titles.count
     }
