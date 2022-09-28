@@ -23,7 +23,6 @@ class BYCSegmentViewController2: UIViewController {
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
         smoothView.headerStickyHeight = UIApplication.shared.statusBarFrame.height + 44
-        smoothView.defaultSelectedIndex = 1
         return smoothView
     }()
     
@@ -42,7 +41,6 @@ class BYCSegmentViewController2: UIViewController {
         titleDataSource.isTitleZoomEnabled = true
         titleDataSource.reloadData(selectedIndex: 0)
         categoryView.dataSource = titleDataSource
-        categoryView.defaultSelectedIndex = 1
         let lineView = JXSegmentedIndicatorLineView()
         lineView.lineStyle = .lengthen
         categoryView.indicators = [lineView]
@@ -87,7 +85,6 @@ extension BYCSegmentViewController2: BYCSegmentViewDataSource {
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
         let listView = BYCSegmentListView(index: index)
-        listView.requestData()
         return listView
     }
 }

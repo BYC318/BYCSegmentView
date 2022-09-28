@@ -19,6 +19,7 @@ class BYCSegmentListView: UIView {
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "tableViewCell")
         tableView.rowHeight = 50.0
         tableView.backgroundColor = .white
+        tableView.alwaysBounceVertical = true
         return tableView
     }()
 
@@ -36,6 +37,7 @@ class BYCSegmentListView: UIView {
         })
         
         self.tableView.reloadData()
+        self.requestData()
     }
 
     required init?(coder: NSCoder) {

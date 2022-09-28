@@ -20,20 +20,16 @@ class BYCSegmentViewController6: UIViewController {
         return .default
     }
     
+    let datas = [0: BYCSegmentViewController61(), 1: BYCSegmentViewController61(), 2: BYCSegmentViewController61()]
+    
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
         smoothView.headerStickyHeight = 0
-        smoothView.defaultSelectedIndex = 1
         return smoothView
     }()
     
-    var titleDataSource = JXSegmentedTitleDataSource()
-    
-    lazy var categoryView: JXSegmentedView = {
-        let categoryView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50))
-        
-        categoryView.backgroundColor = .white
-        
+    lazy var titleDataSource: JXSegmentedTitleDataSource = {
+        let titleDataSource = JXSegmentedTitleDataSource()
         titleDataSource.titles = ["BTC", "ETH", "CET"]
         titleDataSource.titleNormalFont = UIFont.systemFont(ofSize: 14.0)
         titleDataSource.titleSelectedFont = UIFont.systemFont(ofSize: 16.0)
@@ -41,13 +37,25 @@ class BYCSegmentViewController6: UIViewController {
         titleDataSource.titleSelectedColor = .black
         titleDataSource.isTitleZoomEnabled = true
         titleDataSource.reloadData(selectedIndex: 0)
+        return titleDataSource
+    }()
+    
+    lazy var categoryView: JXSegmentedView = {
+        let categoryView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50))
+        categoryView.backgroundColor = .white
         categoryView.dataSource = titleDataSource
-        categoryView.defaultSelectedIndex = 1
         let lineView = JXSegmentedIndicatorLineView()
         lineView.lineStyle = .lengthen
         categoryView.indicators = [lineView]
         
         return categoryView
+    }()
+    
+    private lazy var header: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 876))
+        button.setImage(UIImage.init(named: "image"), for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return button
     }()
     
     override func viewDidLoad() {
@@ -69,15 +77,21 @@ class BYCSegmentViewController6: UIViewController {
         }
         self.categoryView.contentScrollView = self.smoothView.listCollectionView
     }
+    
+    @objc func buttonAction() {
+        let alter = UIAlertController.init(title: "点击了头部", message: nil, preferredStyle: .alert)
+        alter.addAction(UIAlertAction.init(title: "知道了", style: .cancel, handler: nil))
+        self.present(alter, animated: true, completion: nil)
+    }
 }
 
 extension BYCSegmentViewController6: BYCSegmentViewDataSource {
+
     func numberOfLists(_ smoothView: BYCSegmentView) -> Int {
         return self.titleDataSource.titles.count
     }
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
-        let listView = BYCSegmentViewController61()
-        return listView
+        return datas[index]!
     }
 }

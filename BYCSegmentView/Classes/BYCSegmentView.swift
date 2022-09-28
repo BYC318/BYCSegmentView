@@ -45,11 +45,11 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     /// 列表代理集合
     public private(set) var listDict = [Int: BYCSegmentListViewDelegate]()
     public let listCollectionView: UICollectionView
-    public var defaultSelectedIndex: Int = 0
+    private var defaultSelectedIndex: Int = 0
     /// 悬停高度
     public var headerStickyHeight: CGFloat = 0
-    public weak var delegate: BYCSegmentViewDelegate?
-    weak var dataSource: BYCSegmentViewDataSource?
+    private weak var delegate: BYCSegmentViewDelegate?
+    private weak var dataSource: BYCSegmentViewDataSource?
     public private(set) var hoverType: BYCSegmentHoverType = .none
     /// 支持内容不足时候撑开内容
     public var isHoldUpScrollView: Bool = true
@@ -79,15 +79,17 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     var animated = true
     
-    public init(dataSource: BYCSegmentViewDataSource) {
+    public init(dataSource: BYCSegmentViewDataSource, defaultSelectedIndex: Int = 0) {
         self.dataSource = dataSource
-        
+        self.defaultSelectedIndex = defaultSelectedIndex
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
         listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: .zero)
+        
+        loadCurrentListScrollView()
         
         listCollectionView.dataSource = self
         listCollectionView.delegate = self
@@ -114,8 +116,10 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     deinit {
         listDict.values.forEach {
-            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
-            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
+            if !($0 is BYCSegmentViewDataSource) {
+                $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
+                $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
+            }
         }
         self.headerView?.removeFromSuperview()
         self.sliderView?.removeFromSuperview()
@@ -145,17 +149,29 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         loadHeaderAndSegmentedView()
         refreshHeaderContainerView()
     }
+    
+    private func loadCurrentListScrollView() {
+        guard let dataSource = dataSource else { return }
+        let count = dataSource.numberOfLists(self)
+        if defaultSelectedIndex < 0 || defaultSelectedIndex >= count {
+            defaultSelectedIndex = 0
+        }
+        self.currentListScrollView = dataSource.segmentView(self, initListAtIndex: defaultSelectedIndex).listScrollView()
+    }
 
     public func reloadData() {
-        currentListScrollView = nil
+        
         currentIndex = defaultSelectedIndex
+        loadCurrentListScrollView()
         currentHeaderContainerViewY = 0
         isSyncListContentOffsetEnabled = false
         
         listHeaderDict.removeAll()
         listDict.values.forEach {
-            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
-            $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
+            if !($0 is BYCSegmentViewDataSource) {
+                $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentOffset)
+                $0.listScrollView().removeObserver(self, forKeyPath: BYCSegmentViewContentSize)
+            }
             $0.listView().removeFromSuperview()
         }
         listDict.removeAll()
@@ -329,7 +345,6 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
                     scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: minContentSizeHeight)
                     if let listScrollView = self.currentListScrollView {
                         if scrollView != listScrollView {
-                            print("isHoldUpScrollView  111 === ")
                             scrollView.contentOffset = CGPoint(x: 0, y: self.currentListInitailzeContentOffsetY)
                         }
                     }
@@ -396,8 +411,6 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
             if #available(iOS 11.0, *) {
                 listScrollView?.contentInsetAdjustmentBehavior = .never
             }
-            
-            
             var insets = listScrollView?.contentInset
             insets?.top = headerContainerHeight
             list?.listScrollView().contentInset = insets ?? .zero
@@ -411,9 +424,10 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
                 listHeader.addSubview(headerContainerView)
             }
             listHeaderDict[indexPath.item] = listHeader
-    
-            listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentOffset, options: .new, context: nil)
-            listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentSize, options: .new, context: nil)
+            if !(list is BYCSegmentViewDataSource ) {
+                listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentOffset, options: .new, context: nil)
+                listScrollView?.addObserver(self, forKeyPath: BYCSegmentViewContentSize, options: .new, context: nil)
+            }
             listScrollView?.contentOffset = listScrollView!.contentOffset
             animated = false
         }
@@ -445,6 +459,7 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.bounds.size.width > 0 else { return }
         delegate?.segmentViewDidScroll?(self, scrollView: scrollView)
         let indexPercent = scrollView.contentOffset.x/scrollView.bounds.size.width
         let index = Int(scrollView.contentOffset.x/scrollView.bounds.size.width)
