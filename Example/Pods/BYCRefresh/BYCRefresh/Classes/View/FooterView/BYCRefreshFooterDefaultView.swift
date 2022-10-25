@@ -1,0 +1,54 @@
+//
+//  BYCRefreshFooterDefaultView.swift
+//  BYCRefresh
+//
+//  Created by BYC on 2022/10/19.
+//
+
+import UIKit
+
+open class BYCRefreshFooterDefaultView: BYCRefreshFooterBaseView {
+
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.textColor = .green
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(label)
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var pullingPercent: CGFloat {
+        didSet {
+            print("pullingPercent == \(pullingPercent)")
+        }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        label.frame = bounds
+        
+        switch state {
+        case .idle:
+            label.text = "上拉即可刷新~"
+        case .pulling:
+            label.text = "松开即可刷新~"
+        case .refreshing:
+            label.text = "刷新中~"
+        case .willRefresh:
+            label.text = "即将刷新~"
+        case .noMoreData:
+            label.text = "加载完毕~"
+        default:
+            break
+        }
+    }
+}

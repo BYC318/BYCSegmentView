@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_BYCSegmentView_TestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_BYCSegmentView_TestsVersionString[];
+FOUNDATION_EXPORT double BYCRefreshVersionNumber;
+FOUNDATION_EXPORT const unsigned char BYCRefreshVersionString[];
 

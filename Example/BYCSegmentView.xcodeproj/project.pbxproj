@@ -263,6 +263,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BYCSegmentView_Example/Pods-BYCSegmentView_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BYCRefresh/BYCRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/BYCSegmentView/BYCSegmentView.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/LookinServer/LookinServer.framework",
@@ -271,6 +272,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BYCRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BYCSegmentView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LookinServer.framework",

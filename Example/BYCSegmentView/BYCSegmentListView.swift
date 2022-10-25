@@ -7,6 +7,8 @@
 
 import UIKit
 import BYCSegmentView
+import MJRefresh
+import BYCRefresh
 
 class BYCSegmentListView: UIView {
 
@@ -36,8 +38,16 @@ class BYCSegmentListView: UIView {
             make.edges.equalTo(self)
         })
         
-        self.tableView.reloadData()
-        self.requestData()
+        self.tableView.byc_header = BYCRefreshHeaderDefaultView.header(refreshingBlock: { [weak self] in
+            self?.requestData()
+            self?.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self?.tableView.byc_header?.endRefreshing()
+            }
+        })
+        
+        self.tableView.byc_header?.beginRefreshing()
+        self.tableView.byc_header?.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
 
     required init?(coder: NSCoder) {
@@ -76,7 +86,7 @@ extension BYCSegmentListView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        cell.textLabel?.text = "第\(indexPath.row+1)行"
+        cell.textLabel?.text = "第\(indexPath.row+1)行~~~~~~"
         return cell
     }
     
