@@ -37,6 +37,7 @@ class BYCSegmentListView: UIView {
         self.tableView.snp.makeConstraints({ (make) in
             make.edges.equalTo(self)
         })
+        self.requestData()
         
         self.tableView.byc_header = BYCRefreshHeaderDefaultView.header(refreshingBlock: { [weak self] in
             self?.requestData()
@@ -45,9 +46,18 @@ class BYCSegmentListView: UIView {
                 self?.tableView.byc_header?.endRefreshing()
             }
         })
-        
-        self.tableView.byc_header?.beginRefreshing()
+
         self.tableView.byc_header?.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
+        
+//        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+//            self?.requestData()
+//            self?.tableView.reloadData()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                self?.tableView.mj_header?.endRefreshing()
+//            }
+//        })
+//
+//        self.tableView.mj_header?.beginRefreshing()
     }
 
     required init?(coder: NSCoder) {
