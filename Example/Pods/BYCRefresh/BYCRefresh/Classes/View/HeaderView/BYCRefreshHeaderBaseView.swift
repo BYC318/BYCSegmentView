@@ -9,18 +9,20 @@ import UIKit
 
 open class BYCRefreshHeaderBaseView: UIView {
 
-    var automaticallyChangeAlpha = true
+    public var automaticallyChangeAlpha = true
     
-    var scrollView: UIScrollView?
-    
+    public var scrollView: UIScrollView?
+    public var offset = 0.0
+    public var diffInset = 0.0
     var refreshingBlock = {}
     var scrollViewOriginalInset: UIEdgeInsets?
+    var insetTopSuspend = 0.0
     
-    var refreshing: Bool {
+    public var refreshing: Bool {
         state == .refreshing || state == .willRefresh
     }
     
-    var pullingPercent: CGFloat = 0.0 {
+    open var pullingPercent: CGFloat = 0.0 {
         didSet {
             if pullingPercent > 1 {
                 pullingPercent = 1
@@ -36,13 +38,19 @@ open class BYCRefreshHeaderBaseView: UIView {
         }
     }
     
-    var state: RefreshState = .idle {
+    open var state: RefreshState = .idle {
         willSet {
             if state == newValue { return }
             
             if newValue == .idle {
-                if state != .refreshing { return }
+                if state != .refreshing {
+                    DispatchQueue.main.async {
+                        self.setNeedsLayout()
+                    }
+                    return
+                }
                 UIView.animate(withDuration: RefreshData.animationDuration) {
+                    self.scrollView?.byc_insetT += self.insetTopSuspend;
                     if self.automaticallyChangeAlpha {
                         self.alpha = 0.0
                     }
@@ -55,8 +63,9 @@ open class BYCRefreshHeaderBaseView: UIView {
                         guard let scrollView = self.scrollView else { return }
                         guard let scrollViewOriginalInset = self.scrollViewOriginalInset else { return }
                         if scrollView.panGestureRecognizer.state != .cancelled {
-                            let top = scrollViewOriginalInset.top + self.byc_height
-                            scrollView.contentOffset = CGPoint.init(x: 0, y: -top)
+                            let top = scrollViewOriginalInset.top + self.gap()
+                            scrollView.byc_insetT = top;
+                            scrollView.byc_offsetY = -top
                         }
                     } completion: { finished in
                         self.refreshingBlock()
@@ -74,6 +83,7 @@ open class BYCRefreshHeaderBaseView: UIView {
         let view = Self()
         view.refreshingBlock = refreshingBlock
         view.alpha = view.pullingPercent
+        view.state = .idle
         return view
     }
     
@@ -83,14 +93,13 @@ open class BYCRefreshHeaderBaseView: UIView {
             return
         }
         byc_x = scrollView.byc_insetL
-        byc_y = 0
+        byc_y = offset
         byc_width = scrollView.byc_width
         byc_height = RefreshData.headerHeight
         
         if state == .willRefresh {
             state = .refreshing
         }
-        print("scrollView === \(scrollView.byc_size)")
     }
     
     open override func willMove(toSuperview newSuperview: UIView?) {
@@ -111,6 +120,10 @@ open class BYCRefreshHeaderBaseView: UIView {
         addObservers()
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    func gap() -> CGFloat {
+        offset >= 0 ? 0 : -((diffInset > 0 ? diffInset : 0) + offset)
     }
     
     func removeObservers() {
@@ -141,7 +154,14 @@ open class BYCRefreshHeaderBaseView: UIView {
             setNeedsLayout()
             layoutIfNeeded()
         }
-        if state == .refreshing { return }
+        if state == .refreshing {
+            let scrollViewOriginalInsetTop = scrollViewOriginalInset?.top ?? 0
+            var insetT = -scrollView.byc_offsetY > scrollViewOriginalInsetTop ? -scrollView.byc_offsetY : scrollViewOriginalInsetTop
+            insetT = insetT > gap() + scrollViewOriginalInsetTop ? gap() + scrollViewOriginalInsetTop : insetT;
+            scrollView.byc_insetT = insetT
+            insetTopSuspend = scrollViewOriginalInsetTop - insetT
+            return
+        }
         scrollViewOriginalInset = scrollView.byc_inset
         guard let scrollViewOriginalInset = scrollViewOriginalInset else { return }
         let offsetY = scrollView.byc_offsetY

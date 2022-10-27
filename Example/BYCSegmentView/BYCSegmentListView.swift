@@ -49,6 +49,16 @@ class BYCSegmentListView: UIView {
 
         self.tableView.byc_header?.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
         
+        self.tableView.byc_footer = BYCRefreshFooterDefaultView.footer(refreshingBlock: { [weak self] in
+            self?.requestData()
+            self?.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self?.tableView.byc_footer?.endRefreshing()
+            }
+        })
+
+        self.tableView.byc_footer?.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
+        
 //        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
 //            self?.requestData()
 //            self?.tableView.reloadData()

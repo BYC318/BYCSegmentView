@@ -10,20 +10,22 @@ import UIKit
 open class BYCRefreshFooterBaseView: UIView {
 
     
-    var automaticallyChangeAlpha = true
+    public var automaticallyChangeAlpha = true
     
-    var scrollView: UIScrollView?
-    
+    public var scrollView: UIScrollView?
+    public var offset = 0.0
+    public var diffInset = 0.0
     var refreshingBlock = {}
     var scrollViewOriginalInset: UIEdgeInsets?
     var firstLayout = true
+    var lastBottomDelta = 0.0
     
     
-    var refreshing: Bool {
+    public var refreshing: Bool {
         state == .refreshing || state == .willRefresh
     }
     
-    var pullingPercent: CGFloat = 0.0 {
+    open var pullingPercent: CGFloat = 0.0 {
         didSet {
             if pullingPercent > 1 {
                 pullingPercent = 1
@@ -39,39 +41,60 @@ open class BYCRefreshFooterBaseView: UIView {
         }
     }
     
-    var state: RefreshState = .idle {
+    open var state: RefreshState = .idle {
         willSet {
             if state == newValue { return }
-            
-            guard let scrollView = scrollView else { return }
-            
-            if newValue == .idle || newValue == .noMoreData {
-                
-                if state == .refreshing {
-                    DispatchQueue.main.async {
-                        self.pullingPercent = 0.0
-                    }
-                }
-                let deltaH = heightForContentBreakView()
-                
-                if state == .refreshing && deltaH > 0 {
-                    scrollView.byc_offsetY = scrollView.byc_offsetY
-                }
-                
-            } else if newValue == .refreshing {
-                refreshingBlock()
-            }
-            
+            let oldState = state
             DispatchQueue.main.async {
-                self.setNeedsLayout()
+                guard let scrollView = self.scrollView else { return }
+                
+                if self.state == .idle || self.state == .noMoreData {
+                    
+                    if oldState == .refreshing {
+                        
+                        UIView.animate(withDuration: RefreshData.animationDuration) {
+                            scrollView.byc_insetB -= self.lastBottomDelta
+                            self.alpha = 0.0
+                        } completion: { finished in
+                            self.pullingPercent = 0.0
+                        }
+                    }
+                    let deltaH = self.heightForContentBreakView()
+                    
+                    if oldState == .refreshing && deltaH > 0 {
+                        scrollView.byc_offsetY = scrollView.byc_offsetY
+                    }
+                    
+                } else if self.state == .refreshing {
+                    UIView.animate(withDuration: RefreshData.animationDuration) {
+                        let scrollViewOriginalInsetBottom = self.scrollViewOriginalInset?.bottom ?? 0
+                        var bottom = scrollViewOriginalInsetBottom + self.gap()
+                        let deltaH = self.heightForContentBreakView()
+                        if deltaH < 0 {
+                            bottom -= deltaH
+                        }
+                        self.lastBottomDelta = bottom - scrollView.byc_insetB
+                        scrollView.byc_insetB = bottom
+                        scrollView.byc_offsetY = self.reponseRefreshOffsetY() + self.gap()
+                    } completion: { finished in
+                        self.refreshingBlock()
+                    }
+                    
+                }
+                
+                DispatchQueue.main.async {
+                    self.setNeedsLayout()
+                }
             }
         }
     }
     
     public static func footer(refreshingBlock: @escaping RefreshingBlock) -> BYCRefreshFooterBaseView {
         let view = Self()
+        view.byc_height = RefreshData.footerHeight
         view.refreshingBlock = refreshingBlock
         view.alpha = view.pullingPercent
+        view.state = .idle
         return view
     }
     
@@ -84,8 +107,8 @@ open class BYCRefreshFooterBaseView: UIView {
             guard let scrollViewOriginalInset = scrollViewOriginalInset else { return }
             firstLayout = false
             let contentHeight = scrollView.byc_contentH
-            let scrollHeight = scrollView.byc_height - scrollViewOriginalInset.top
-            byc_y = max(contentHeight, scrollHeight) - RefreshData.footerHeight
+            let scrollHeight = scrollView.byc_height - scrollViewOriginalInset.top - scrollViewOriginalInset.bottom
+            byc_y = max(contentHeight, scrollHeight) - offset - byc_height
         }
         byc_x = scrollView.byc_insetL
         byc_width = scrollView.byc_width
@@ -114,6 +137,10 @@ open class BYCRefreshFooterBaseView: UIView {
         addObservers()
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    func gap() -> CGFloat {
+        offset >= 0 ? 0 : -((diffInset > 0 ? diffInset : 0) + offset)
     }
     
     func removeObservers() {
@@ -179,8 +206,8 @@ open class BYCRefreshFooterBaseView: UIView {
         guard let scrollView = scrollView else { return }
         guard let scrollViewOriginalInset = scrollViewOriginalInset else { return }
         let contentHeight = scrollView.byc_contentH
-        let scrollHeight = scrollView.byc_height - scrollViewOriginalInset.top
-        byc_y = max(contentHeight, scrollHeight) - RefreshData.footerHeight
+        let scrollHeight = scrollView.byc_height - scrollViewOriginalInset.top - scrollViewOriginalInset.bottom
+        byc_y = max(contentHeight, scrollHeight) - offset - byc_height
     }
     
     func heightForContentBreakView() -> CGFloat {

@@ -117,7 +117,7 @@ extension UIScrollView {
 }
 
 extension UIScrollView {
-    open var byc_header: BYCRefreshHeaderBaseView? {
+    public var byc_header: BYCRefreshHeaderBaseView? {
         set {
             let header = byc_header
             if header == newValue { return }
@@ -131,7 +131,7 @@ extension UIScrollView {
         }
     }
     
-    open var byc_footer: BYCRefreshFooterBaseView? {
+    public var byc_footer: BYCRefreshFooterBaseView? {
         set {
             let footer = byc_footer
             if footer == newValue { return }

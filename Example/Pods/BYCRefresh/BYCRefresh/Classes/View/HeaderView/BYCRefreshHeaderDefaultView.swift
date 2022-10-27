@@ -17,6 +17,26 @@ open class BYCRefreshHeaderDefaultView: BYCRefreshHeaderBaseView {
         return label
     }()
     
+    
+    open override var state: RefreshState {
+        didSet {
+            switch state {
+            case .idle:
+                label.text = "下拉即可刷新~"
+            case .pulling:
+                label.text = "松开即可刷新~"
+            case .refreshing:
+                label.text = "刷新中~"
+            case .willRefresh:
+                label.text = "即将刷新~"
+            case .noMoreData:
+                label.text = "加载完毕~"
+            default:
+                break
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(label)
@@ -26,29 +46,8 @@ open class BYCRefreshHeaderDefaultView: BYCRefreshHeaderBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var pullingPercent: CGFloat {
-        didSet {
-            print("pullingPercent == \(pullingPercent)")
-        }
-    }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         label.frame = bounds
-        
-        switch state {
-        case .idle:
-            label.text = "下拉即可刷新~"
-        case .pulling:
-            label.text = "松开即可刷新~"
-        case .refreshing:
-            label.text = "刷新中~"
-        case .willRefresh:
-            label.text = "即将刷新~"
-        case .noMoreData:
-            label.text = "加载完毕~"
-        default:
-            break
-        }
     }
 }

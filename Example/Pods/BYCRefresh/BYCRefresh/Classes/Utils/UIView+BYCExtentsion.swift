@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
 
-    var byc_x: CGFloat {
+    internal var byc_x: CGFloat {
         get {
             return frame.origin.x
         }
@@ -18,7 +18,7 @@ extension UIView {
         }
     }
 
-    var byc_y: CGFloat {
+    internal var byc_y: CGFloat {
         get {
             return frame.origin.y
         }
@@ -27,7 +27,7 @@ extension UIView {
         }
     }
     
-    var byc_height: CGFloat {
+    internal var byc_height: CGFloat {
         get {
             return frame.size.height
         }
@@ -36,7 +36,7 @@ extension UIView {
         }
     }
     
-    var byc_width: CGFloat {
+    internal var byc_width: CGFloat {
         get {
             return frame.size.width
         }
@@ -45,7 +45,7 @@ extension UIView {
         }
     }
     
-    var byc_size: CGSize {
+    internal var byc_size: CGSize {
         get {
             return frame.size
         }

@@ -6,23 +6,23 @@
 //
 
 struct RefreshData {
-    static let contentOffset = "contentOffset"
-    static let contentInset = "contentInset"
-    static let contentSize = "contentSize"
-    static let state = "state"
+    internal static let contentOffset = "contentOffset"
+    internal static let contentInset = "contentInset"
+    internal static let contentSize = "contentSize"
+    internal static let state = "state"
     
-    static let headerHeight = 50.0
-    static let footerHeight = 50.0
+    internal static let headerHeight = 50.0
+    internal static let footerHeight = 50.0
     
-    static let animationDuration = 0.25
+    internal static let animationDuration = 0.25
     
-    static var headerPointer   = "byc_header"
-    static var footerPointer   = "byc_footer"
+    internal static var headerPointer   = "byc_header"
+    internal static var footerPointer   = "byc_footer"
 }
 
 public typealias RefreshingBlock = (() -> Void)
 
-enum RefreshState {
+public enum RefreshState {
     case idle  /** 普通闲置状态 */
     case pulling /** 松开就可以进行刷新的状态 */
     case refreshing /** 正在刷新中的状态 */
