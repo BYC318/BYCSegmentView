@@ -18,12 +18,14 @@ class ViewController: UITableViewController {
         case 1:
             self.navigationController?.pushViewController(BYCSegmentViewController2(), animated: true)
         case 2:
-            self.navigationController?.pushViewController(BYCSegmentViewController3(), animated: true)
+            self.navigationController?.pushViewController(BYCSegmentViewController21(), animated: true)
         case 3:
-            self.navigationController?.pushViewController(BYCSegmentViewController4(), animated: true)
+            self.navigationController?.pushViewController(BYCSegmentViewController3(), animated: true)
         case 4:
-            self.navigationController?.pushViewController(BYCSegmentViewController5(), animated: true)
+            self.navigationController?.pushViewController(BYCSegmentViewController4(), animated: true)
         case 5:
+            self.navigationController?.pushViewController(BYCSegmentViewController5(), animated: true)
+        case 6:
             self.navigationController?.pushViewController(BYCSegmentViewController6(), animated: true)
         default:
             break

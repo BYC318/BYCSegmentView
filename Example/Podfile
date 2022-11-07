@@ -9,5 +9,5 @@ target 'BYCSegmentView_Example' do
   pod 'SnapKit', '5.0.1'
   pod 'BYCRefresh'
   pod 'LookinServer', :configurations => ['Debug']
-  
+  pod 'WRNavigationBar','~>1.4.0'
 end

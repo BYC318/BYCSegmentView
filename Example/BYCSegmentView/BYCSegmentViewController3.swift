@@ -11,15 +11,8 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController3: UIViewController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-    
+class BYCSegmentViewController3: BaseViewController {
+
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
         smoothView.headerStickyHeight = UIApplication.shared.statusBarFrame.height + 44

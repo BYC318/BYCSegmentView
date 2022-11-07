@@ -5,6 +5,7 @@ PODS:
   - LookinServer (1.0.6)
   - MJRefresh (3.7.5)
   - SnapKit (5.0.1)
+  - WRNavigationBar (1.4.0)
 
 DEPENDENCIES:
   - BYCRefresh
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - LookinServer
   - MJRefresh
   - SnapKit (= 5.0.1)
+  - WRNavigationBar (~> 1.4.0)
 
 SPEC REPOS:
   trunk:
@@ -21,6 +23,7 @@ SPEC REPOS:
     - LookinServer
     - MJRefresh
     - SnapKit
+    - WRNavigationBar
 
 EXTERNAL SOURCES:
   BYCSegmentView:
@@ -33,7 +36,8 @@ SPEC CHECKSUMS:
   LookinServer: 18155b1e4a08213c236a1dd6b7ca52328a70a1e3
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10
 
-PODFILE CHECKSUM: d66cf0195c91e97df8fe0dee378c904d7815e85d
+PODFILE CHECKSUM: 2552801bab8bc1ec7ddb34d5edaa068396b40710
 
 COCOAPODS: 1.11.3

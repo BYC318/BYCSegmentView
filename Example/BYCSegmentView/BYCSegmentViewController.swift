@@ -11,15 +11,8 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController: UIViewController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-    
+class BYCSegmentViewController: BaseViewController {
+
     lazy var smoothView: BYCSegmentView = {
         let smoothView = BYCSegmentView(dataSource: self)
         smoothView.headerStickyHeight = 0
@@ -61,7 +54,6 @@ class BYCSegmentViewController: UIViewController {
         self.view.addSubview(self.categoryView)
         
         view.backgroundColor = .red
-
         let top = UIApplication.shared.statusBarFrame.height + 44
         self.categoryView.snp.makeConstraints { (make) in
 
@@ -97,6 +89,8 @@ extension BYCSegmentViewController: BYCSegmentViewDataSource {
     
     func segmentView(_ smoothView: BYCSegmentView, initListAtIndex index: Int) -> BYCSegmentListViewDelegate {
         let listView = BYCSegmentListView(index: index)
+        listView.tableView.byc_header?.offset = -450
+        listView.tableView.byc_header?.diffInset = 400
         return listView
     }
 }

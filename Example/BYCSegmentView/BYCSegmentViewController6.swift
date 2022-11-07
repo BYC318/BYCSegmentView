@@ -11,15 +11,8 @@ import MJRefresh
 import BYCSegmentView
 import SnapKit
 
-class BYCSegmentViewController6: UIViewController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-    
+class BYCSegmentViewController6: BaseViewController {
+
     let datas = [0: BYCSegmentListView.init(index: 0), 1: BYCSegmentViewController61(imageName: "image1"), 2: BYCSegmentViewController61(imageName: "image2")]
     
     lazy var smoothView: BYCSegmentView = {
