@@ -80,6 +80,13 @@ extension BYCSegmentViewController21: BYCSegmentViewDataSource {
         let listView = BYCSegmentListView(index: index)
         listView.tableView.byc_header?.offset = -500
         listView.tableView.byc_header?.diffInset = 450
+//        do {
+//            listView.tableView.byc_header?.offset = -450
+//            listView.tableView.byc_header?.diffInset = 450
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                listView.tableView.bringSubview(toFront: listView.tableView.byc_header ?? UIView())
+//            }
+//        }
         return listView
     }
 }

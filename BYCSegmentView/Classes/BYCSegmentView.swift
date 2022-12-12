@@ -3,7 +3,7 @@
 //  CoinExchange_iOS
 //
 //  Created by 元朝 on 2022/9/16.
-// 
+//
 
 import UIKit
 
@@ -17,7 +17,7 @@ public enum BYCSegmentHoverType {
     func listView() -> UIView
     func listScrollView() -> UIScrollView
     
-    @objc optional func listViewDidAppear()
+    @objc optional func listViewWillAppear()
     @objc optional func listViewDidDisappear()
     
     @objc optional func listScrollViewShouldReset() -> Bool
@@ -35,6 +35,9 @@ public enum BYCSegmentHoverType {
     @objc optional func segmentViewListScrollViewDidScroll(_ segmentView: BYCSegmentView, scrollView: UIScrollView, contentOffset: CGPoint)
     @objc optional func segmentViewDragBegan(_ segmentView: BYCSegmentView)
     @objc optional func segmentViewDragEnded(_ segmentView: BYCSegmentView, isOnTop: Bool)
+    @objc optional func listViewWillAppear(_ segmentView: BYCSegmentView, obj: BYCSegmentListViewDelegate)
+    @objc optional func listViewDidAppear(_ segmentView: BYCSegmentView, obj: BYCSegmentListViewDelegate)
+    @objc optional func listViewDidDisappear(_ segmentView: BYCSegmentView, obj: BYCSegmentListViewDelegate)
 }
 
 let BYCSegmentViewCellID = "SegmentCell"
@@ -79,8 +82,9 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     
     var animated = true
     
-    public init(dataSource: BYCSegmentViewDataSource, defaultSelectedIndex: Int = 0) {
+    public init(dataSource: BYCSegmentViewDataSource, delegate: BYCSegmentViewDelegate, defaultSelectedIndex: Int = 0) {
         self.dataSource = dataSource
+        self.delegate = delegate
         self.defaultSelectedIndex = defaultSelectedIndex
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -308,13 +312,17 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     }
     
     
-    func listDidAppear(at index: Int) {
+    func listWillAppear(at index: Int) {
         guard let dataSource = dataSource else { return }
         let count = dataSource.numberOfLists(self)
         if count <= 0 || index >= count {
             return
         }
-        listDict[index]?.listViewDidAppear?()
+        guard let obj = listDict[index] else {
+            return
+        }
+        obj.listViewWillAppear?()
+        self.delegate?.listViewWillAppear?(self, obj: obj)
     }
     
     func listDidDisappear(at index: Int) {
@@ -323,7 +331,11 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         if count <= 0 || index >= count {
             return
         }
-        listDict[index]?.listViewDidDisappear?()
+        guard let obj = listDict[index] else {
+            return
+        }
+        obj.listViewDidDisappear?()
+        self.delegate?.listViewDidDisappear?(self, obj: obj)
     }
     
     fileprivate func set(scrollView: UIScrollView?, offset: CGPoint) {
@@ -370,7 +382,12 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
 
     func horizontalScrollDidEnd(at index: Int) {
         currentIndex = index
-        guard let listHeader = listHeaderDict[index], let listScrollView = listDict[index]?.listScrollView() else { return }
+        guard let obj = listDict[index] else {
+            return
+        }
+        self.delegate?.listViewDidAppear?(self, obj: obj)
+        guard let listHeader = listHeaderDict[index] else { return }
+        let listScrollView = obj.listScrollView()
         self.currentListScrollView = listScrollView
         listDict.values.forEach {
             $0.listScrollView().scrollsToTop = ($0.listScrollView() == listScrollView)
@@ -450,7 +467,7 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        listDidAppear(at: indexPath.item)
+        listWillAppear(at: indexPath.item)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -466,7 +483,16 @@ extension BYCSegmentView: UICollectionViewDataSource, UICollectionViewDelegateFl
         
         let listScrollView = self.listDict[index]?.listScrollView()
         if (indexPercent - CGFloat(index) == 0) && !(scrollView.isTracking || scrollView.isDecelerating) && listScrollView?.contentOffset.y ?? 0 <= -(segmentedHeight + headerStickyHeight) {
-            horizontalScrollDidEnd(at: index)
+            let obj = listDict[index]
+            if obj == nil {
+                /// 延迟一下，防止第一次点击过来的时候没有加载对应的页面
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.horizontalScrollDidEnd(at: index)
+                }
+            } else {
+                self.horizontalScrollDidEnd(at: index)
+            }
+            
         }else {
             if headerContainerView.superview != self {
                 headerContainerView.frame.origin.y = currentHeaderContainerViewY
