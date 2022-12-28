@@ -30,4 +30,16 @@ open class BYCCollectionView: UICollectionView, UIGestureRecognizerDelegate {
         }
         return true
     }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        guard let description = otherGestureRecognizer.view?.description else {
+            return false
+        }
+        if description.contains("UILayoutContainerView") {
+            return true
+        }
+        return false
+    }
+    
 }
