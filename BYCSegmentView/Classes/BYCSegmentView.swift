@@ -47,7 +47,7 @@ let BYCSegmentViewContentSize = "contentSize"
 open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
     /// 列表代理集合
     public private(set) var listDict = [Int: BYCSegmentListViewDelegate]()
-    public let listCollectionView: UICollectionView
+    public let listCollectionView: BYCCollectionView
     private var defaultSelectedIndex: Int = 0
     /// 悬停高度
     public var headerStickyHeight: CGFloat = 0
@@ -90,7 +90,7 @@ open class BYCSegmentView: UIView, UIGestureRecognizerDelegate {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
-        listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        listCollectionView = BYCCollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(frame: .zero)
         
         loadCurrentListScrollView()

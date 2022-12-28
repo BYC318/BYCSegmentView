@@ -1,6 +1,6 @@
 PODS:
   - BYCRefresh (0.1.7)
-  - BYCSegmentView (0.2.6)
+  - BYCSegmentView (0.2.7)
   - JXSegmentedView (1.2.7)
   - LookinServer (1.0.6)
   - MJRefresh (3.7.5)
@@ -31,7 +31,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BYCRefresh: e21f46500d7a31220391ac90a12fe3e982545248
-  BYCSegmentView: 2fab06c7e7462b34b6026d9c19bf027f5c7db7d3
+  BYCSegmentView: 6996a14ff84b5b9577a9e665c2484f094910ba04
   JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
   LookinServer: 18155b1e4a08213c236a1dd6b7ca52328a70a1e3
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
