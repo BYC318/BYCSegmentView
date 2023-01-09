@@ -21,10 +21,10 @@ open class BYCCollectionView: UICollectionView, UIGestureRecognizerDelegate {
     
     open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
-            let transitionX = panGesture.translation(in: self).x
-            if transitionX < 0, contentSize.width - contentOffset.x == self.frame.width {
+            let translationX = panGesture.translation(in: self).x
+            if translationX < 0, contentSize.width - contentOffset.x == self.frame.width {
                 return false
-            } else if transitionX > 0, contentOffset.x == 0 {
+            } else if translationX > 0, contentOffset.x == 0 {
                 return false
             }
         }
